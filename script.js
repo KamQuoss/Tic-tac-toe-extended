@@ -1,13 +1,12 @@
 // TO DO
 // pokaż turę - dwa znaki, zmiana klasy w css - podświetlenie akutalnego gracza, nie tekstem!!!git fech
 // animacja zwyciestwa
-// niech chwilę wyświetla zanim wyczyści tablicę
 // zablokowanie klika gdy czeka na sprawdzenie
 
 let boardContainer = document.querySelector('.board-container'),
     comunicationContainer = document.querySelector('.alert-container');
 
-// START borad size choice 
+// borad size choice 
 const boardRadio = document.querySelectorAll("input[name=board-size]");
 
 for (const radio of boardRadio) {
@@ -24,8 +23,8 @@ for (const radio of boardRadio) {
         }
     });
 }
-// END borad size choice 
 
+// Board prototype 
 
 function Board(size) {
     this.size = size;
@@ -38,7 +37,9 @@ function Board(size) {
         o: 'o'
     };
     this.staringPlayer = this.sign.x;
+    this.timeout = 2000;
 
+    // generate HTML board
     this.generateBoard = () => {
         for (row = 0; row < this.size; row++) {
             for (col = 0; col < this.size; col++) {
@@ -51,7 +52,7 @@ function Board(size) {
             }
         }
     };
-
+    // game controller
     this.playGame = (x, y, boardBox) => {
         if (this.turn > this.turnLimit) return;
         if (this.turn % 2 == 0) {
@@ -61,27 +62,25 @@ function Board(size) {
             this.checkWinner();
             if (this.win) {
                 this.writeWinner(this.sign.x);
-                setTimeout(this.clearBoard, 2000);
+                setTimeout(this.clearBoard, this.timeout);
                 //this.clearBoard()
             }
         } else {
             this.board[x][y] = this.sign.o;
             boardBox.innerHTML = this.sign.o;
             ++this.turn;
-            //this.checkWinner();
+            this.checkWinner();
             if (this.win) {
                 this.writeWinner(this.sign.o)
-                setTimeout(this.clearBoard, 2000);
-                //this.clearBoard()
+                setTimeout(this.clearBoard, this.timeout);
             }
         }
         if (this.turn == this.turnLimit && this.win != true) {
             this.writeWinner();
-            setTimeout(this.clearBoard, 2000);
-            //this.clearBoard()
+            setTimeout(this.clearBoard, this.timeout);            
         }
     };
-
+    //  checking winning combination (rows, columns and diagonals)
     this.checkRow = () => {
         if (this.win == true) return;
         for (row of this.board) {
@@ -122,7 +121,7 @@ function Board(size) {
         let setDiagonalRightValues = new Set(diagonalRightValues);
         if (setDiagonalRightValues.size == 1 && !setDiagonalRightValues.has('')) this.win = true;
     };
-
+    // checking if there is a winner
     this.checkWinner = () => {
         this.checkRow();
         this.checkCol();
@@ -132,10 +131,12 @@ function Board(size) {
 
     this.writeWinner = (winner) => {
         if (winner === undefined) {
-            comunicationContainer.innerHTML = `Remis`
+            comunicationContainer.innerHTML = `Remis`;
+            setTimeout(()=>comunicationContainer.innerHTML = '', this.timeout)
         }
         else {
-            comunicationContainer.innerHTML = `Wygrywa ${winner}!`
+            comunicationContainer.innerHTML = `Wygrywa ${winner}!`;
+            setTimeout(()=>comunicationContainer.innerHTML = '', this.timeout)
         }
     };
 
