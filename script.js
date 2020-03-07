@@ -1,7 +1,6 @@
 // TO DO
 // pokaż turę - dwa znaki, zmiana klasy w css - podświetlenie akutalnego gracza, nie tekstem!!!
 // animacja zwyciestwa
-// zablokowanie klika gdy czeka na sprawdzenie - jeszcze puste pola musisz zablokować
 
 let boardContainer = document.querySelector('.board-container'),
     comunicationContainer = document.querySelector('.alert-container');
@@ -60,11 +59,11 @@ function Board(size) {
         if (this.turn % 2 == 0) {
             this.board[x][y] = this.sign.x;
             boardBox.innerHTML = this.sign.x;
-            boardBox.removeEventListener('click', clickAction)
+            boardBox.removeEventListener('click', clickAction);
             ++this.turn;
             this.checkWinner();
             if (this.win) {
-                //this.disableClick(boardBox);
+                this.disableClick();
                 this.writeWinner(this.sign.x);
                 setTimeout(this.clearBoard, this.timeout);
             }
@@ -75,7 +74,7 @@ function Board(size) {
             ++this.turn;
             this.checkWinner();
             if (this.win) {
-                //this.disableClick(boardBox);
+                this.disableClick();
                 this.writeWinner(this.sign.o)
                 setTimeout(this.clearBoard, this.timeout);
             }
@@ -143,15 +142,10 @@ function Board(size) {
             setTimeout(() => comunicationContainer.innerHTML = '', this.timeout)
         }
     };
-    // this.disableClick = (box) => {
-    //     let board = box.parentNode;
-    //     console.log(typeof(board));
-    //     console.log(board.hasOwnProperty("addEventListener"))
-    //     // for (box.childNodes in board) {
-    //     //     console.log(box.childNodes);
-    //     //     box => box.removeEventListener('click', clickAction)
-    //     // }
-    // }
+    this.disableClick = () => {
+        let board = document.querySelectorAll('.box');
+        board.forEach(box => box.removeEventListener('click', clickAction))
+    }
 
     this.clearBoard = () => {
         this.board = Array.from(Array(size), () => new Array(size).fill('')),
