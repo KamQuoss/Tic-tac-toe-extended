@@ -1,7 +1,7 @@
 // TO DO
-// pokaż turę - dwa znaki, zmiana klasy w css - podświetlenie akutalnego gracza, nie tekstem!!!git fech
+// pokaż turę - dwa znaki, zmiana klasy w css - podświetlenie akutalnego gracza, nie tekstem!!!
 // animacja zwyciestwa
-// zablokowanie klika gdy czeka na sprawdzenie
+// zablokowanie klika gdy czeka na sprawdzenie - jeszcze puste pola musisz zablokować
 
 let boardContainer = document.querySelector('.board-container'),
     comunicationContainer = document.querySelector('.alert-container');
@@ -38,6 +38,9 @@ function Board(size) {
     };
     this.staringPlayer = this.sign.x;
     this.timeout = 2000;
+    const clickAction = (event) => {
+        this.playGame(event.target.dataset.row, event.target.dataset.col, event.target)
+    }
 
     // generate HTML board
     this.generateBoard = () => {
@@ -47,37 +50,39 @@ function Board(size) {
                 box.dataset.row = row;
                 box.dataset.col = col;
                 box.classList.add('box');
-                box.addEventListener('click', event => this.playGame(event.target.dataset.row, event.target.dataset.col, event.target));
+                box.addEventListener('click', clickAction);
                 boardContainer.appendChild(box)
             }
         }
     };
     // game controller
     this.playGame = (x, y, boardBox) => {
-        if (this.turn > this.turnLimit) return;
         if (this.turn % 2 == 0) {
             this.board[x][y] = this.sign.x;
             boardBox.innerHTML = this.sign.x;
+            boardBox.removeEventListener('click', clickAction)
             ++this.turn;
             this.checkWinner();
             if (this.win) {
+                //this.disableClick(boardBox);
                 this.writeWinner(this.sign.x);
                 setTimeout(this.clearBoard, this.timeout);
-                //this.clearBoard()
             }
         } else {
             this.board[x][y] = this.sign.o;
             boardBox.innerHTML = this.sign.o;
+            boardBox.removeEventListener('click', clickAction)
             ++this.turn;
             this.checkWinner();
             if (this.win) {
+                //this.disableClick(boardBox);
                 this.writeWinner(this.sign.o)
                 setTimeout(this.clearBoard, this.timeout);
             }
         }
         if (this.turn == this.turnLimit && this.win != true) {
             this.writeWinner();
-            setTimeout(this.clearBoard, this.timeout);            
+            setTimeout(this.clearBoard, this.timeout);
         }
     };
     //  checking winning combination (rows, columns and diagonals)
@@ -128,17 +133,25 @@ function Board(size) {
         this.checkDiagonalLeft();
         this.checkDiagonalRight();
     };
-
+    //comunication with a players
     this.writeWinner = (winner) => {
         if (winner === undefined) {
             comunicationContainer.innerHTML = `Remis`;
-            setTimeout(()=>comunicationContainer.innerHTML = '', this.timeout)
-        }
-        else {
+            setTimeout(() => comunicationContainer.innerHTML = '', this.timeout)
+        } else {
             comunicationContainer.innerHTML = `Wygrywa ${winner}!`;
-            setTimeout(()=>comunicationContainer.innerHTML = '', this.timeout)
+            setTimeout(() => comunicationContainer.innerHTML = '', this.timeout)
         }
     };
+    // this.disableClick = (box) => {
+    //     let board = box.parentNode;
+    //     console.log(typeof(board));
+    //     console.log(board.hasOwnProperty("addEventListener"))
+    //     // for (box.childNodes in board) {
+    //     //     console.log(box.childNodes);
+    //     //     box => box.removeEventListener('click', clickAction)
+    //     // }
+    // }
 
     this.clearBoard = () => {
         this.board = Array.from(Array(size), () => new Array(size).fill('')),
