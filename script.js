@@ -70,7 +70,7 @@ function Board(size) {
         } else {
             this.board[x][y] = this.sign.o;
             boardBox.innerHTML = this.sign.o;
-            boardBox.removeEventListener('click', clickAction)
+            boardBox.removeEventListener('click', clickAction);
             ++this.turn;
             this.checkWinner();
             if (this.win) {
