@@ -3,7 +3,8 @@
 // animacja zwyciestwa
 
 let boardContainer = document.querySelector('.board-container'),
-    comunicationContainer = document.querySelector('.alert-container');
+    comunicationContainer = document.querySelector('.alert-container'),
+    playerIdentificator = document.querySelectorAll('.player>div');
 
 // borad size choice 
 const boardRadio = document.querySelectorAll("input[name=board-size]");
@@ -36,7 +37,7 @@ function Board(size) {
         o: 'o'
     };
     this.staringPlayer = this.sign.x;
-    this.timeout = 2000;
+    this.timeout = 3200;
     const clickAction = (event) => {
         this.playGame(event.target.dataset.row, event.target.dataset.col, event.target)
     }
@@ -50,7 +51,8 @@ function Board(size) {
                 box.dataset.col = col;
                 box.classList.add('box');
                 box.addEventListener('click', clickAction);
-                boardContainer.appendChild(box)
+                boardContainer.appendChild(box);
+                playerIdentificator.forEach(el => el.classList.toggle('active'));
             }
         }
     };
@@ -59,6 +61,7 @@ function Board(size) {
         if (this.turn % 2 == 0) {
             this.board[x][y] = this.sign.x;
             boardBox.innerHTML = this.sign.x;
+            playerIdentificator.forEach(el => el.classList.toggle('active'));
             boardBox.removeEventListener('click', clickAction);
             ++this.turn;
             this.checkWinner();
@@ -70,6 +73,7 @@ function Board(size) {
         } else {
             this.board[x][y] = this.sign.o;
             boardBox.innerHTML = this.sign.o;
+            playerIdentificator.forEach(el => el.classList.toggle('active'));
             boardBox.removeEventListener('click', clickAction);
             ++this.turn;
             this.checkWinner();

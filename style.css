@@ -6,30 +6,55 @@ body {
     background: #353839;
     color: #eaebeb;
     font-family: 'Indie Flower';
-    font-size: 3rem;
 }
 
 header {
     color: #eaebeb;
     text-align: center;
     font-weight: bold;
+    font-size: 3rem;
+}
+
+.player {
+    display: flex;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0.8rem 0;
+}
+
+.player>div {
+    border: 2px solid #eaebeb;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+    line-height: 1;
+    margin: 0 0.4rem;
+    border-radius: 0.2rem;
+}
+
+.player>div.active {
+    color: #353839;
+    background-color: #eaebeb;
+    font-weight: bold;
 }
 
 .board-size-choice {
     display: flex;
     justify-content: center;
-    font-size: 1.8rem;
+    font-size: 2.4rem;
 }
 
 .alert-container {
     color: #eaebeb;
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+    margin: 0 0.4rem;
 }
 
 .board {
     display: flex;
     justify-content: center;
+    font-size: 3.4rem;
 }
 
 .board-container {
