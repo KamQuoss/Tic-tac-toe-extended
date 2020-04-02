@@ -157,7 +157,7 @@ function Board(size) {
 
 }
 
-let defaultChoice = document.querySelector('input[value="3"]');
-defaultChoice.checked = true;
+// let defaultChoice = document.querySelector('input[value="3"]');
+// defaultChoice.checked = true;
 let defaultArray = new Board(3);
 defaultArray.clearBoard();

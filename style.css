@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
 
 /* to do */
-/* ostylowanie pola wyboru */
+/* turn helper */
 body {
     background: #353839;
     color: #eaebeb;
@@ -9,30 +9,19 @@ body {
     font-size: 3rem;
 }
 
-.title {
+header {
     color: #eaebeb;
     text-align: center;
-}
-.board-size-choice {
-    text-align: center;
-    font-size: 1.8rem;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-}
-.board-size-choice>span{
-    transition: ease-out 2s;
-    cursor: pointer;
-    padding: 0 1rem;
-}
-.board-size-choice>span:hover{
-    transition: ease-in 0.5s;
-    font-weight: bold;
-}
-.board-size-choice>span.chosen{
     font-weight: bold;
 }
 
-.alert-container{
+.board-size-choice {
+    display: flex;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+
+.alert-container {
     color: #eaebeb;
     text-align: center;
     font-size: 1.6rem;
@@ -57,10 +46,12 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
+
 .board-container.size-5 {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
 }
+
 .board-container.size-7 {
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(7, 1fr);
@@ -75,4 +66,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Hide the browser's default radio button */
+input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+input[type="radio"]+label {
+    color: #808080;
+}
+
+input[type="radio"]:checked+label {
+    color: #eaebeb;
 }

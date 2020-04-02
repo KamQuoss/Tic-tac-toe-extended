@@ -9,23 +9,23 @@
 </head>
 
 <body>
-    <section class="head">
-        <div class="title">TIC-TAC-TOE</div>
-        <div class="board-size-choice">
-            <form>
-                <label for="normal">
-                    <input type="radio" name="board-size" id="normal" value="3">normal</label><br>
-                <label for="hard">
-                    <input type="radio" name="board-size" id="hard" value="5">hard</label><br>
-                <label for="impossible">
-                    <input type="radio" name="board-size" id="impossible" value="7">impossible</label>
-            </form>
-        </div>
+    <header>
+        <div>TIC-TAC-TOE</div>
+    </header>
+    <section class="board-size-choice">
+        <form>
+            <input type="radio" name="board-size" id="normal" value="3" checked>
+            <label class="label-container" for="normal">normal</label> &bullet;
+            <input type="radio" name="board-size" id="hard" value="5">
+            <label class="label-container" for="hard">hard</label> &bullet;
+            <input type="radio" name="board-size" id="impossible" value="7">
+            <label class="label-container" for="impossible">impossible</label>
+        </form>
     </section>
-    <div class="board">
+    <section class="board">
         <div class="board-container size-3">
         </div>
-    </div>
+    </section>
     <div class="alert-container"></div>
     <script src="script.js"></script>
 </body>
