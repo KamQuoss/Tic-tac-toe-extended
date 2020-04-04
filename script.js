@@ -139,10 +139,10 @@ function Board(size) {
     //comunication with a players
     this.writeWinner = (winner) => {
         if (winner === undefined) {
-            comunicationContainer.innerHTML = `Remis`;
+            comunicationContainer.innerHTML = `Draw`; 
             setTimeout(() => comunicationContainer.innerHTML = '', this.timeout)
         } else {
-            comunicationContainer.innerHTML = `Wygrywa ${winner}!`;
+            comunicationContainer.innerHTML = `${winner} wins!`;
             setTimeout(() => comunicationContainer.innerHTML = '', this.timeout)
         }
     };
