@@ -1,7 +1,4 @@
-// TO DO
-// pokaż turę - dwa znaki, zmiana klasy w css - podświetlenie akutalnego gracza, nie tekstem!!!
-// animacja zwyciestwa
-
+// html elements
 let boardContainer = document.querySelector('.board-container'),
     comunicationContainer = document.querySelector('.alert-container'),
     playerIdentificator = document.querySelectorAll('.player>div');
@@ -11,15 +8,12 @@ const boardRadio = document.querySelectorAll("input[name=board-size]");
 
 for (const radio of boardRadio) {
     radio.addEventListener("change", function () {
-        for (const radio of boardRadio) {
-            if (radio.checked) {
-                boardContainer.classList.remove('size-3', 'size-5', 'size-7');
-                boardContainer.classList.add(`size-${radio.value}`)
-                let newBoard = new Board(parseInt(radio.value));
-                newBoard.clearBoard();
-                console.log(newBoard.board);
-                break;
-            }
+        if (radio.checked) {
+            boardContainer.classList.remove('size-3', 'size-5', 'size-7');
+            boardContainer.classList.add(`size-${radio.value}`)
+            let newBoard = new Board(parseInt(radio.value));
+            newBoard.clearBoard();
+            break;
         }
     });
 }
@@ -139,18 +133,19 @@ function Board(size) {
     //comunication with a players
     this.writeWinner = (winner) => {
         if (winner === undefined) {
-            comunicationContainer.innerHTML = `Draw`; 
+            comunicationContainer.innerHTML = `Draw`;
             setTimeout(() => comunicationContainer.innerHTML = '', this.timeout)
         } else {
             comunicationContainer.innerHTML = `${winner} wins!`;
             setTimeout(() => comunicationContainer.innerHTML = '', this.timeout)
         }
     };
+    // disable click
     this.disableClick = () => {
         let board = document.querySelectorAll('.box');
         board.forEach(box => box.removeEventListener('click', clickAction))
     }
-
+    // clear board
     this.clearBoard = () => {
         this.board = Array.from(Array(size), () => new Array(size).fill('')),
             this.win = false,
@@ -161,7 +156,5 @@ function Board(size) {
 
 }
 
-// let defaultChoice = document.querySelector('input[value="3"]');
-// defaultChoice.checked = true;
 let defaultArray = new Board(3);
 defaultArray.clearBoard();
