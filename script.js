@@ -13,7 +13,6 @@ for (const radio of boardRadio) {
             boardContainer.classList.add(`size-${radio.value}`)
             let newBoard = new Board(parseInt(radio.value));
             newBoard.clearBoard();
-            break;
         }
     });
 }

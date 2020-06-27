@@ -31,10 +31,12 @@ header {
     margin: 0 0.4rem;
     border-radius: 0.2rem;
 }
-.player p{
+
+.player p {
     margin: 0;
     padding-right: 0.5rem;
 }
+
 .player>div.active {
     color: #353839;
     background-color: #eaebeb;
@@ -90,8 +92,8 @@ header {
     background: #353839;
     color: #eaebeb;
     border: 0px solid black;
-    height: 5rem;
-    width: 5rem;
+    height: 3.6rem;
+    width: 3.6rem;
     display: flex;
     justify-content: center;
     align-items: center;
